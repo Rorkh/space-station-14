@@ -17,6 +17,11 @@ public sealed partial class ArkalyseGlovesSystem : EntitySystem
     }
     private void OnEquipped(EntityUid uid, ArkalyseGlovesComponent component, GotEquippedEvent args)
     {
+        if (args.SlotFlags != Shared.Inventory.SlotFlags.GLOVES)
+        {
+            return;
+        }
+
         if (!HasComp<ArkalyseStunComponent>(args.Equipee) || !HasComp<ArkalyseDamageComponent>(args.Equipee) || !HasComp<ArkalyseMutedComponent>(args.Equipee))
         {
             var stunComponent = EnsureComp<ArkalyseStunComponent>(args.Equipee);
