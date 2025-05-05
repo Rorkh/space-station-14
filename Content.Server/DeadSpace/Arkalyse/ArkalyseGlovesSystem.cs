@@ -19,7 +19,7 @@ public sealed partial class ArkalyseGlovesSystem : EntitySystem
     {
         if (args.SlotFlags != Shared.Inventory.SlotFlags.GLOVES)
         {
-            return;
+            _shouldTerminate = false;
         }
 
         if (!HasComp<ArkalyseStunComponent>(args.Equipee) || !HasComp<ArkalyseDamageComponent>(args.Equipee) || !HasComp<ArkalyseMutedComponent>(args.Equipee))
