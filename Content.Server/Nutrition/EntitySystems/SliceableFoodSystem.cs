@@ -40,13 +40,16 @@ public sealed class SliceableFoodSystem : EntitySystem
         if (args.Handled)
             return;
 
+        if (!TryComp<UtensilComponent>(args.Used, out var utensil) || (utensil.Types & UtensilType.Knife) == 0) {
+            return;
+        }
+
         var doAfterArgs = new DoAfterArgs(EntityManager,
             args.User,
-            entity.Comp.SliceTime,
+            entity.Comp.SliceTime / utensil.SpeedModifier,
             new SliceFoodDoAfterEvent(),
             entity,
-            entity,
-            args.Used)
+            entity)
         {
             BreakOnDamage = true,
             BreakOnMove = true,
@@ -60,13 +63,12 @@ public sealed class SliceableFoodSystem : EntitySystem
         if (args.Cancelled || args.Handled || args.Args.Target == null)
             return;
 
-        if (TrySliceFood(entity, args.User, args.Used, entity.Comp))
+        if (TrySliceFood(entity, args.User, entity.Comp))
             args.Handled = true;
     }
 
     private bool TrySliceFood(EntityUid uid,
         EntityUid user,
-        EntityUid? usedItem,
         SliceableFoodComponent? component = null,
         FoodComponent? food = null,
         TransformComponent? transform = null)
@@ -76,9 +78,6 @@ public sealed class SliceableFoodSystem : EntitySystem
             return false;
 
         if (!_solutionContainer.TryGetSolution(uid, food.Solution, out var soln, out var solution))
-            return false;
-
-        if (!TryComp<UtensilComponent>(usedItem, out var utensil) || (utensil.Types & UtensilType.Knife) == 0)
             return false;
 
         var sliceVolume = solution.Volume / FixedPoint2.New(component.TotalCount);

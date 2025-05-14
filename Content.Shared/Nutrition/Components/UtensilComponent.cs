@@ -35,6 +35,13 @@ namespace Content.Shared.Nutrition.Components
         /// </summary>
         [DataField("breakSound")]
         public SoundSpecifier BreakSound = new SoundPathSpecifier("/Audio/Items/snap.ogg");
+
+        /// <summary>
+        /// Modifier of time required for use of utensil.
+        /// Currently applies only at knife cutting speed.
+        /// </summary>
+        [DataField("speedModifier"), ViewVariables(VVAccess.ReadWrite)]
+        public float SpeedModifier = 1f;
     }
 
     // If you want to make a fancy output on "wrong" composite utensil use (like: you need fork and knife)
