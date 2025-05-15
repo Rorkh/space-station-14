@@ -23,7 +23,13 @@ public class SearchOptionButton : HeadedOptionButton
         ScrollHeading.AddChild(_searchBar);
     }
 
-    protected void OnSearchBarTextChanged(LineEdit.LineEditEventArgs args)
+    public void ResetSearch()
+    {
+        _searchBar.Text = "";
+        FilterItems();
+    }
+
+    protected void FilterItems()
     {
         var query = _searchBar.Text.Trim().ToLowerInvariant();
 
@@ -40,5 +46,10 @@ public class SearchOptionButton : HeadedOptionButton
                 data.Button.Visible = true;
             }
         }
+    }
+
+    protected void OnSearchBarTextChanged(LineEdit.LineEditEventArgs args)
+    {
+        FilterItems();
     }
 }
