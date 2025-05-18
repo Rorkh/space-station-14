@@ -73,6 +73,16 @@
   - type: AntiRottingContainer
   - type: StaticPrice
     price: 200
+  - type: PaperLabel
+    labelSlot:
+      insertVerbText: comp-paper-label-insert
+      ejectVerbText: comp-paper-label-eject
+      whitelist:
+        components:
+        - Paper
+      blacklist:
+        tags:
+        - Book
 
 - type: entity
   id: Crematorium
