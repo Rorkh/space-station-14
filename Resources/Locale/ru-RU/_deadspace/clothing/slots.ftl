@@ -1,0 +1,1 @@
+clothing-security-uniform-camera-strap-slot = Нательная камера

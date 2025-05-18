@@ -1,0 +1,11 @@
+- type: entity
+  abstract: true
+  id: CameraStrapSlotBase
+  components:
+  - type: ItemSlots
+    slots:
+      camera_strap_slot:
+        name: clothing-security-uniform-camera-strap-slot
+        whitelist:
+          tags:
+          - BodyCamera

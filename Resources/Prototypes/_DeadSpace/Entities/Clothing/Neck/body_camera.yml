@@ -1,3 +1,6 @@
+- type: Tag
+  id: BodyCamera
+
 - type: entity
   parent: ClothingNeckBase
   id: ClothingNeckBodyCamera
@@ -24,3 +27,4 @@
   - type: Tag
     tags:
     - WhitelistChameleon
+    - BodyCamera
