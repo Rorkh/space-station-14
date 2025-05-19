@@ -34,6 +34,8 @@
         type: HumanoidMarkingModifierBoundUserInterface
       enum.StrippingUiKey.Key:
         type: StrippableBoundUserInterface
+      enum.MagicMirrorUiKey.Key:
+          type: MagicMirrorBoundUserInterface
   # to prevent bag open/honk spam
   - type: UseDelay
     delay: 0.5
@@ -120,6 +122,12 @@
             state: jumpsuit-female
   - type: Sanity # DS14
   - type: SlimePerson # DS14: For emote panel
+  - type: MagicMirror   
+    internal: true
+  - type: IntrinsicUI
+    uis:
+      enum.MagicMirrorUiKey.Key:
+        toggleAction: HairstyleAction
   - type: FootPrints # Backmen-footsteps
     leftBarePrint: "footprint-left-bare-slime"
     rightBarePrint: "footprint-right-bare-slime"
