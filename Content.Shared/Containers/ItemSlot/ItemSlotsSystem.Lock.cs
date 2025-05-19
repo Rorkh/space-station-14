@@ -2,7 +2,7 @@ using Content.Shared.Lock;
 
 namespace Content.Shared.Containers.ItemSlots;
 
-public sealed partial class ItemSlotsSystem
+public abstract partial class ItemSlotsSystem // DS14-security-uniform-bodycam : Changed sealed to abstract
 {
     private void InitializeLock()
     {

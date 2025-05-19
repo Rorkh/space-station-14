@@ -44,7 +44,7 @@ public sealed class EquipmentVisualsUpdatedEvent : EntityEventArgs
     /// </summary>
     public readonly EntityUid Equipee;
 
-    public readonly string Slot;
+    public string Slot; // DS14-security-uniform-bodycam
 
     /// <summary>
     ///     The layers that this item is now revealing.

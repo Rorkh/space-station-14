@@ -4,8 +4,9 @@
   components:
   - type: ItemSlots
     slots:
-      camera_strap_slot:
+      camera_strap:
         name: clothing-security-uniform-camera-strap-slot
+        renderSlot: neck
         whitelist:
           tags:
           - BodyCamera

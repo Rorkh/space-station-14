@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Clothing.EntitySystems;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.DoAfter;
 using Content.Shared.Inventory;
 using Robust.Shared.Audio;
@@ -13,7 +14,7 @@ namespace Content.Shared.Clothing.Components;
 /// </summary>
 [NetworkedComponent]
 [RegisterComponent]
-[Access(typeof(ClothingSystem), typeof(InventorySystem))]
+[Access(typeof(ClothingSystem), typeof(InventorySystem), typeof(ItemSlotsSystem))]
 public sealed partial class ClothingComponent : Component
 {
     [DataField("clothingVisuals")]

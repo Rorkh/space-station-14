@@ -24,7 +24,7 @@ namespace Content.Shared.Containers.ItemSlots
     ///     Note when using popups on entities with many slots with InsertOnInteract, EjectOnInteract or EjectOnUse:
     ///     A single use will try to insert to/eject from every slot and generate a popup for each that fails.
     /// </remarks>
-    public sealed partial class ItemSlotsSystem : EntitySystem
+    public abstract partial class ItemSlotsSystem : EntitySystem // DS14-security-uniform-bodycam : Changed sealed to abstract
     {
         [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
         [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
@@ -72,7 +72,7 @@ namespace Content.Shared.Containers.ItemSlots
                     continue;
 
                 var item = Spawn(slot.StartingItem, Transform(uid).Coordinates);
-                    
+
                 if (slot.ContainerSlot != null)
                     _containers.Insert(item, slot.ContainerSlot);
             }
@@ -294,11 +294,20 @@ namespace Content.Shared.Containers.ItemSlots
             bool? inserted = slot.ContainerSlot != null ? _containers.Insert(item, slot.ContainerSlot) : null;
             // ContainerSlot automatically raises a directed EntInsertedIntoContainerMessage
 
-            // Logging
+
             if (inserted != null && inserted.Value && user != null)
+            {
+                // DS14-security-uniform-bodycam-start
+                var ev = new ItemSlotInsertEvent(uid, item, user, slot);
+                RaiseLocalEvent(uid, ref ev);
+                //RaiseLocalEvent(item, ref ev);
+                // // DS14-security-uniform-bodycam-end
+
+                // Logging
                 _adminLogger.Add(LogType.Action,
                     LogImpact.Low,
                     $"{ToPrettyString(user.Value)} inserted {ToPrettyString(item)} into {slot.ContainerSlot?.ID + " slot of "}{ToPrettyString(uid)}");
+            }
 
             _audioSystem.PlayPredicted(slot.InsertSound, uid, excludeUserAudio ? user : null);
         }

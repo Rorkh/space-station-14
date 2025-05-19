@@ -242,6 +242,14 @@ namespace Content.Shared.Containers.ItemSlots
         [NonSerialized]
         public bool Local = true;
 
+        // DS14-security-uniform-bodycam-start
+        [DataField]
+        public bool ShouldDisplayAsClothing = false;
+        
+        [DataField]
+        public string? RenderSlot;
+        // DS14-security-uniform-bodycam-end
+
         public void CopyFrom(ItemSlot other)
         {
             // These fields are mutable reference types. But they generally don't get modified, so this should be fine.
@@ -271,8 +279,45 @@ namespace Content.Shared.Containers.ItemSlots
     public record struct ItemSlotInsertAttemptEvent(EntityUid SlotEntity, EntityUid Item, EntityUid? User, ItemSlot Slot, bool Cancelled = false);
 
     /// <summary>
+    /// Event raised after the slot entity and the item being inserted.
+    /// </summary>
+    [ByRefEvent]
+    public record struct ItemSlotInsertEvent(EntityUid SlotEntity, EntityUid Item, EntityUid? User, ItemSlot Slot);
+
+    /// <summary>
     /// Event raised on the slot entity and the item being inserted to determine if an item can be ejected from an item slot.
     /// </summary>
     [ByRefEvent]
     public record struct ItemSlotEjectAttemptEvent(EntityUid SlotEntity, EntityUid Item, EntityUid? User, ItemSlot Slot, bool Cancelled = false);
+
+    // SS14-security-uniform-bodycam-start
+
+    /// <summary>
+    ///     Get visuals for item in slot
+    /// </summary>
+    public sealed class GetItemSlotsVisualsEvent : EntityEventArgs
+    {
+        /// <summary>
+        ///     Entity that is wearing the item.
+        /// </summary>
+        public readonly EntityUid Equipee;
+
+        public EntityUid Item;
+
+        /// <summary>
+        ///     The layers that will be added to the entity that is wearing this item.
+        /// </summary>
+        /// <remarks>
+        ///     Note that the actual ordering of the layers depends on the order in which they are added to this list;
+        /// </remarks>
+        public List<(string, PrototypeLayerData)> Layers = new();
+
+        public GetItemSlotsVisualsEvent(EntityUid equipee, EntityUid item)
+        {
+            Equipee = equipee;
+            Item = item;
+        }
+    }
+
+    // SS14-security-uniform-bodycam-end
 }
