@@ -61,6 +61,10 @@
   - type: FootPrints
     leftBarePrint: "footprint-left-bare-lizard"
     rightBarePrint: "footprint-right-bare-lizard"
+  # DS14-vulpkanin-wagging-tails-start
+  - type: Wagging
+    action: ActionToggleWaggingVulpkanin
+  # DS14-vulpkanin-wagging-tails-end
 
 
 - type: entity
