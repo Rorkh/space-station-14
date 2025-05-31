@@ -297,9 +297,10 @@ namespace Content.Shared.Containers.ItemSlots
 
             if (inserted != null && inserted.Value && user != null)
             {
+            {
                 // DS14-security-uniform-bodycam-start
                 var ev = new ItemSlotInsertEvent(uid, item, user, slot);
-                RaiseLocalEvent(uid, ref ev);
+                RaiseLocalEvent(uid, ref ev, true);
                 //RaiseLocalEvent(item, ref ev);
                 // // DS14-security-uniform-bodycam-end
 
@@ -558,9 +559,17 @@ namespace Content.Shared.Containers.ItemSlots
 
             // Logging
             if (ejected != null && ejected.Value && user != null)
+            {
+                // DS14-security-uniform-bodycam-start
+                var ev = new ItemSlotEjectEvent(uid, item, user, slot);
+                RaiseLocalEvent(uid, ref ev, true);
+                //RaiseLocalEvent(item, ref ev);
+                // // DS14-security-uniform-bodycam-end
+
                 _adminLogger.Add(LogType.Action,
                     LogImpact.Low,
                     $"{ToPrettyString(user.Value)} ejected {ToPrettyString(item)} from {slot.ContainerSlot?.ID + " slot of "}{ToPrettyString(uid)}");
+            }
 
             _audioSystem.PlayPredicted(slot.EjectSound, uid, excludeUserAudio ? user : null);
         }

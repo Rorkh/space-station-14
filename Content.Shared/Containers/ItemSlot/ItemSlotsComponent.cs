@@ -293,6 +293,14 @@ namespace Content.Shared.Containers.ItemSlots
     // SS14-security-uniform-bodycam-start
 
     /// <summary>
+    /// Event raised after the slot entity and the item being ejected.
+    /// </summary>
+    [ByRefEvent]
+    public record struct ItemSlotEjectEvent(EntityUid SlotEntity, EntityUid Item, EntityUid? User, ItemSlot Slot);
+
+    // SS14-security-uniform-bodycam-start
+
+    /// <summary>
     ///     Get visuals for item in slot
     /// </summary>
     public sealed class GetItemSlotsVisualsEvent : EntityEventArgs
