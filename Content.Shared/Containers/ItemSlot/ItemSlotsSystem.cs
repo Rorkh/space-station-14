@@ -297,7 +297,6 @@ namespace Content.Shared.Containers.ItemSlots
 
             if (inserted != null && inserted.Value && user != null)
             {
-            {
                 // DS14-security-uniform-bodycam-start
                 var ev = new ItemSlotInsertEvent(uid, item, user, slot);
                 RaiseLocalEvent(uid, ref ev, true);
